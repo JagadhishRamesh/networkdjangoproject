@@ -1,0 +1,88 @@
+{% extends "ssh/base.html" %}
+{% block content %}
+
+  <form action="{% url 'compliance-check-logs' %}">
+    <button type="submit" class="btn btn-dark" style="float: right;margin-left: -50%;margin-top: 2em;">Show Compliance Logs</button>
+    <br><br>
+  </form>
+
+  <form action="{% url 'compliance-check-summary' %}">
+    <button type="submit" class="btn btn-info" style="float: right;margin-left: -50%;margin-top: 2em;">Show Compliance Summary</button>
+    <br><br>
+  </form>
+
+  <h5>Report Summary:</h5>
+  <table class="table table-bordered table-sm">
+    <tbody>
+      <tr>
+        <th scope="row">Total No. of Devices Given</th>
+        <td>{{ TotalDevicesCount }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Total No. of Success Devices</th>
+        <td>{{ SuccessDevicesCount }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Total No. of  Failure Devices</th>
+        <td>{{ FailureDevicesCount }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Time Taken</th>
+        <td>{{ CompletionTime }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Completed at</th>
+        <td>{{ CurrentDateTime }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+  <h5>Detailed Report:</h5><p>
+  <table id="resulttable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th class="th-sm">Host</th>
+        <th class="th-sm">Statistics</th>
+        <th class="th-sm">Missing Commands</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for givendevice,stats in overallstats %}
+      <tr>
+        <td>{{ givendevice }}</td>
+
+        <td>
+          {% for stats_name,stats_count in stats.AllSectionDict.items %}
+            <li>{{ stats_name }} : {{ stats_count }} </li>
+          {% endfor %}
+          <br>
+
+        {% for section_name,counts in stats.ComplainceStats.items %}
+        <b>{{ section_name }}:</b>
+        <ul>
+          {% for count_name, count_num in counts.items %}
+          <li>{{ count_name }} : {{ count_num }} </li>
+          {% endfor %}
+        </ul>
+        {% endfor %}
+        </td>
+
+        <td>
+        {% for MC_section_name,MC_Cmds in stats.MissingCmds.items %}
+        <b>{{ MC_section_name }}:</b>
+        <ul>
+          {% for MC_Cmd in MC_Cmds %}
+          <li>{{ MC_Cmd }} </li>
+          {% endfor %}
+        </ul>
+        {% endfor %}
+        </td>
+
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</p>
+{% endblock content %}

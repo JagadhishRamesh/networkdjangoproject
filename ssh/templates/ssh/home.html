@@ -1,0 +1,15 @@
+{% extends "ssh/base.html" %}
+{% load static %}
+{% block content %}
+
+	<br><br>
+			<br><br>
+
+			<a href="{% url 'ssh-priv' %}" class="btn btn-success">Privileged Mode</a> 
+			<a href="{% url 'ssh-config' %}" class="btn btn-danger">Configuration Mode</a> 
+			<a href="{% url 'ssh-summary' %}" class="btn btn-info">Show Summary</a> 
+			<a href="{% url 'ssh-logs' %}" class="btn btn-dark">Show Logs</a>  
+			<a href="{% url 'inventorydetails-home' %}" class="btn btn-secondary">Get Inventory Details</a> 
+			<a href="{% url 'compliance-check-homepage' %}" class="btn btn-warning">Compliance Check</a>
+
+{% endblock content %}

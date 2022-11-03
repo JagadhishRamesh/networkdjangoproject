@@ -1,0 +1,28 @@
+{% extends "ssh/base.html" %}
+{% block content %}
+
+<br />
+  <form action="{% url 'ssh-summary' %}">
+    <button type="submit" class="btn btn-primary" style="float: right;margin-left: -50%;margin-top: 2em;">Show Summary</button>
+    <br><br>
+  </form>
+
+  <h5>Output Logs:</h5><p>
+  <table id="logstable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th class="th-sm">Host</th>
+        <th class="th-sm">Output</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for givenhost,output in OutputDict %}
+      <tr>
+        <td>{{ givenhost }}</td>
+        <td>{{ output | linebreaks}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table></p>
+
+{% endblock content %}
