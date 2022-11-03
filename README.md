@@ -1,4 +1,4 @@
-# networkdjangoproject
+# Network Django Project
 Features : Pull Configs, Push Configs, Get Inventory Details, Complaince Check
 
 1) Install Python
